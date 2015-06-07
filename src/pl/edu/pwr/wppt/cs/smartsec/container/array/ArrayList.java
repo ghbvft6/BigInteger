@@ -46,6 +46,7 @@ public class ArrayList extends AbstractArrayList {
 		System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
 															// not work on Java
 															// Card
+		array[indexOutOfBounds] = element;
 		indexOutOfBounds = indexCalculator.nextIndex(indexOutOfBounds);
 		return true;
 	}
@@ -54,12 +55,11 @@ public class ArrayList extends AbstractArrayList {
 	public void reverse() {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	// FIXME
 	public Object getArray() {
 		throw new UnsupportedOperationException();
 	}
-
 
 	public boolean equals(ArrayList array) {
 		if (this.size() != array.size()) { // deliberately ignoring ||

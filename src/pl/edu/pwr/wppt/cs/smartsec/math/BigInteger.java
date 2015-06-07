@@ -3,6 +3,7 @@ package pl.edu.pwr.wppt.cs.smartsec.math;
 import java.util.Iterator;
 
 import pl.edu.pwr.wppt.cs.smartsec.container.array.ArrayList;
+import pl.edu.pwr.wppt.cs.smartsec.container.array.ArrayListOfBytes;
 import pl.edu.pwr.wppt.cs.smartsec.memory.Endian;
 
 // FIXME implement String so that Java Card compiler won't fail
@@ -12,17 +13,16 @@ public class BigInteger {
 	public static byte defaultBase = (byte) 0xFF;
 	public static Endian defaultEndian = Endian.LITTLE;
 
-	private ArrayList number; // TODO implement ArrayListOfBytes or Shorts -
-								// right now it's working through autoboxing //
-								// tho autoboxing doesn't work on JDK 1.4
+	private ArrayListOfBytes number;
 	private boolean isSigned = false;
 	private byte base = BigInteger.defaultBase;
-	private Endian endian = BigInteger.defaultEndian;
+	private Endian endian = BigInteger.defaultEndian; // TODO move to
+														// AbstractArrayList as
+														// a method
 
 	public BigInteger() {
-		number = new ArrayList();
-		// number.add(0);
-		number.add(new Byte((byte) 0)); // autoboxing doesn't work
+		number = new ArrayListOfBytes();
+		number.add((byte) 0);
 	}
 
 	public BigInteger(BigInteger bigInteger) {
@@ -37,18 +37,15 @@ public class BigInteger {
 			isSigned = true;
 			number = number.substring(1);
 		}
-		this.number = new ArrayList();
+		this.number = new ArrayListOfBytes();
 		byte[] bytes = number.getBytes();
 		// for(byte b : bytes){
 		// this.number.add(b-48);
 		// }
-		for (Iterator i = this.number.iterator(); i.hasNext();) { // autoboxing
-																	// and
-																	// foreach
-																	// doesn't
-																	// work
-			byte b = ((Byte) i.next()).byteValue();
-			this.number.add(new Byte((byte) (b - 48)));
+		for (ArrayListOfBytes.Itr i = this.number.iteratorOverBytes(); i
+				.hasNext();) { // foreach doesn't work
+			byte b = i.nextByte();
+			this.number.add((byte) (b - 48));
 		}
 		base = 9;
 		toBase(BigInteger.defaultBase);
@@ -57,25 +54,22 @@ public class BigInteger {
 	}
 
 	public BigInteger(byte number) throws Exception {
-		this.number = new ArrayList();
+		this.number = new ArrayListOfBytes();
 		// this.number.add(number);
-		this.number.add(new Byte(number)); // autobixing doesn't work
+		this.number.add(number);
 		toBase(BigInteger.defaultBase);
 	}
 
 	public BigInteger copy() {
 		BigInteger bigInteger = new BigInteger(this);
-		bigInteger.number = new ArrayList();
+		bigInteger.number = new ArrayListOfBytes();
 		// for(Object element : this.number){
 		// bigInteger.number.add(element);
 		// }
-		for (Iterator i = this.number.iterator(); i.hasNext();) { // autoboxing
-																	// and
-																	// foreach
-																	// doesn't
-																	// work
-			byte element = ((Byte) i.next()).byteValue();
-			bigInteger.number.add(new Byte(element));
+		for (ArrayListOfBytes.Itr i = this.number.iteratorOverBytes(); i
+				.hasNext();) { // foreach doesn't work
+			byte element = i.nextByte();
+			bigInteger.number.add(element);
 		}
 		return bigInteger;
 	}

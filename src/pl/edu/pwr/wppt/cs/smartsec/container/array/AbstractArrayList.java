@@ -39,7 +39,7 @@ public abstract class AbstractArrayList implements Iterable {
 	public void reverse() {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public Object getArray() {
 		throw new UnsupportedOperationException();
 	}
@@ -50,7 +50,7 @@ public abstract class AbstractArrayList implements Iterable {
 
 	protected class Itr implements Iterator, Cloneable {
 
-		private short indexNext;
+		protected short indexNext;
 
 		public Itr() {
 			indexNext = indexFirst;
