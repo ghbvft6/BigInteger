@@ -3,6 +3,11 @@ package pl.edu.pwr.wppt.cs.smartsec.math;
 public class test {
 
 	public static void main(String[] args) {
+	    BigInteger a = new BigInteger((byte)1);
+	    BigInteger b = new BigInteger((byte)1);
+	    BigInteger c = new BigInteger((byte)2);
+	    System.out.println(a.plus(b).equals(c));
+	    System.out.println(a.minus(b).equals(b));
 		short arr[] = new short[10];
 		// BoxedShortArray a = new BoxedShortArray(arr);
 		// TODO Auto-generated method stub

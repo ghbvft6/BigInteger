@@ -28,7 +28,8 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 	}
 
 	public short size() {
-		return (short) array.length;
+		if(array!=null) return (short) array.length;
+		else return 0;
 	}
 
 	public Object get(short index) {
@@ -85,15 +86,21 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 	public boolean equals(ArrayListOfBytes array) {
 		if (this.size() != array.size()) { // deliberately ignoring ||
 											// this.indexCalculator!=array.indexCalculator
-			return false;
+		    //System.out.println("surprise size");
+		    return false;
 		}
-		for (Iterator i = this.iterator(), j = array.iterator(); i.hasNext();) { // foreach
+		//System.out.println("OK");
+		ArrayListOfBytes.Itr i = this.iteratorOverBytes();
+        ArrayListOfBytes.Itr j = array.iteratorOverBytes();
+		for (; i.hasNext();) { // foreach
 																					// doesn't
 																					// work
-			Object elementA = i.next();
-			Object elementB = j.next();
-			if (elementA.equals(elementB) == false)
+			byte elementA = i.nextByte();
+			byte elementB = j.nextByte();
+			if (elementA!=elementB){
+			    //System.out.println("surprise " + elementA + " " + elementB);
 				return false;
+			}
 		}
 		return true;
 	}

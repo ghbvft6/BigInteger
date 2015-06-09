@@ -123,22 +123,28 @@ public class BigInteger {
 		short element = 0;
 		for (; i.hasNext() && j.hasNext();++index) {
 			element += (short)(i.nextByte()+j.nextByte());
-			bigInteger.number.set(index, (byte)(element&0xFF));
+			//System.out.println(element + " "+i.hasNext());
+			this.number.set(index, (byte)(element&0xFF));
+			//System.out.println(element + " "+index+" "+(byte)(element&0xFF)+" "+bigInteger.number.getByte((short)0));
+			//System.out.println("arr: "+this.number.equals(bigInteger.number));
 			element >>>= 8;
 		}
+		
 		if (i.hasNext()) for (; i.hasNext() ;++index) { // TODO remove this loop
 			element += (short)(i.nextByte());
-			bigInteger.number.set(index, (byte)(element&0xFF));
+			this.number.set(index, (byte)(element&0xFF));
 			element >>>= 8;
 		}
+		
 		if (j.hasNext()) for (; j.hasNext() ;++index) {
 			element += (short)(j.nextByte());
-			bigInteger.number.set(index, (byte)(element&0xFF));
+			this.number.set(index, (byte)(element&0xFF));
 			element >>>= 8;
 		}
-		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF)); // TODO check if necessary
+		
+		if (element!=0) this.number.set(index, (byte)(element&0xFF)); // TODO check if necessary
 		element >>>= 4;
-		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF));
+		if (element!=0) this.number.set(index, (byte)(element&0xFF));
 		return this;
 	}
 
@@ -152,10 +158,10 @@ public class BigInteger {
 			element += (short)(i.nextByte()-j.nextByte());
 			if (element<0) {
 				element += 256;
-				bigInteger.number.set(index, (byte)(element&0xFF));
+				this.number.set(index, (byte)(element&0xFF));
 				element = -1;
 			} else {
-				bigInteger.number.set(index, (byte)(element&0xFF));
+			    this.number.set(index, (byte)(element&0xFF));
 				element >>>= 8;
 			}
 		}
@@ -163,10 +169,10 @@ public class BigInteger {
 			element += (short)(i.nextByte());
 			if (element<0) {
 				element += 256;
-				bigInteger.number.set(index, (byte)(element&0xFF));
+				this.number.set(index, (byte)(element&0xFF));
 				element = -1;
 			} else {
-				bigInteger.number.set(index, (byte)(element&0xFF));
+			    this.number.set(index, (byte)(element&0xFF));
 				element >>>= 8;
 			}
 		}
@@ -175,12 +181,12 @@ public class BigInteger {
 		}
 		if (j.hasNext() || element <0 ){
 			this.number = new ArrayListOfBytes();
-			bigInteger.number.set((short)0, (byte)(0));
+			this.number.set((short)0, (byte)(0));
 			return this;
 		}
-		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF)); // TODO check if necessary
+		if (element!=0) this.number.set(index, (byte)(element&0xFF)); // TODO check if necessary
 		element >>>= 8;
-		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF));
+		if (element!=0) this.number.set(index, (byte)(element&0xFF));
 		return this;
 	}
 
