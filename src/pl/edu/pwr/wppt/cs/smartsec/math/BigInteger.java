@@ -14,8 +14,8 @@ public class BigInteger {
 	public static Endian defaultEndian = Endian.LITTLE;
 
 	private ArrayListOfBytes number;
-	private boolean isSigned = false;
-	private byte base = BigInteger.defaultBase;
+	private boolean isSigned = false; // TODO unsupported
+	private byte base = BigInteger.defaultBase; // TODO unsupported
 	private Endian endian = BigInteger.defaultEndian; // TODO move to
 														// AbstractArrayList as
 														// a method
@@ -53,11 +53,16 @@ public class BigInteger {
 		toEndian(BigInteger.defaultEndian);
 	}
 
-	public BigInteger(byte number) throws Exception {
+	public BigInteger(byte number) {
 		this.number = new ArrayListOfBytes();
 		// this.number.add(number);
 		this.number.add(number);
-		toBase(BigInteger.defaultBase);
+		try {
+			toBase(BigInteger.defaultBase);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public BigInteger copy() {
@@ -110,33 +115,108 @@ public class BigInteger {
 		return this;
 	}
 
-	// FIXME
+	// TODO test TODO dry TODO performance
 	public BigInteger plus(BigInteger bigInteger) {
-		throw new UnsupportedOperationException();
+		ArrayListOfBytes.Itr i = this.number.iteratorOverBytes();
+		ArrayListOfBytes.Itr j = bigInteger.number.iteratorOverBytes();
+		short index = 0;
+		short element = 0;
+		for (; i.hasNext() && j.hasNext();++index) {
+			element += (short)(i.nextByte()+j.nextByte());
+			bigInteger.number.set(index, (byte)(element&0xFF));
+			element >>>= 8;
+		}
+		if (i.hasNext()) for (; i.hasNext() ;++index) { // TODO remove this loop
+			element += (short)(i.nextByte());
+			bigInteger.number.set(index, (byte)(element&0xFF));
+			element >>>= 8;
+		}
+		if (j.hasNext()) for (; j.hasNext() ;++index) {
+			element += (short)(j.nextByte());
+			bigInteger.number.set(index, (byte)(element&0xFF));
+			element >>>= 8;
+		}
+		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF)); // TODO check if necessary
+		element >>>= 4;
+		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF));
+		return this;
 	}
 
-	// FIXME
+	// TODO test TODO dry TODO performance
 	public BigInteger minus(BigInteger bigInteger) {
-		throw new UnsupportedOperationException();
+		ArrayListOfBytes.Itr i = this.number.iteratorOverBytes();
+		ArrayListOfBytes.Itr j = bigInteger.number.iteratorOverBytes();
+		short index = 0;
+		short element = 0;
+		for (; i.hasNext() && j.hasNext();++index) {
+			element += (short)(i.nextByte()-j.nextByte());
+			if (element<0) {
+				element += 256;
+				bigInteger.number.set(index, (byte)(element&0xFF));
+				element = -1;
+			} else {
+				bigInteger.number.set(index, (byte)(element&0xFF));
+				element >>>= 8;
+			}
+		}
+		if (i.hasNext()) for (; i.hasNext() ;++index) { // TODO remove this loop
+			element += (short)(i.nextByte());
+			if (element<0) {
+				element += 256;
+				bigInteger.number.set(index, (byte)(element&0xFF));
+				element = -1;
+			} else {
+				bigInteger.number.set(index, (byte)(element&0xFF));
+				element >>>= 8;
+			}
+		}
+		if (bigInteger.number.getByte((short) (this.number.size()-1))==0){ // TODO
+			this.number.resize((short) (this.number.size()-1));
+		}
+		if (j.hasNext() || element <0 ){
+			this.number = new ArrayListOfBytes();
+			bigInteger.number.set((short)0, (byte)(0));
+			return this;
+		}
+		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF)); // TODO check if necessary
+		element >>>= 8;
+		if (element!=0) bigInteger.number.set(index, (byte)(element&0xFF));
+		return this;
 	}
 
-	// FIXME
+	// TODO test TODO dry TODO performance^2
 	public BigInteger times(BigInteger bigInteger) {
-		throw new UnsupportedOperationException();
+		BigInteger copy = new BigInteger();
+		copy.is(this);
+		BigInteger zero = new BigInteger((byte)0);
+		BigInteger one = new BigInteger((byte)1);
+		while(bigInteger.equals(zero)==false){
+			bigInteger.minus(one);
+			this.plus(copy);
+		}
+		return this;
 	}
 
-	// FIXME
+	// TODO test TODO dry TODO performance
 	public BigInteger by(BigInteger bigInteger) {
 		throw new UnsupportedOperationException();
 	}
 
-	// FIXME
+	// TODO test TODO dry TODO performance
 	public BigInteger mod(BigInteger bigInteger) {
 		throw new UnsupportedOperationException();
 	}
 
-	// FIXME
+	// TODO test TODO dry TODO performance
 	public BigInteger pow(BigInteger bigInteger) {
-		throw new UnsupportedOperationException();
+		BigInteger copy = new BigInteger();
+		copy.is(this);
+		BigInteger zero = new BigInteger((byte)0);
+		BigInteger one = new BigInteger((byte)1);
+		while(bigInteger.equals(zero)==false){
+			bigInteger.minus(one);
+			this.times(copy);
+		}
+		return this;
 	}
 }

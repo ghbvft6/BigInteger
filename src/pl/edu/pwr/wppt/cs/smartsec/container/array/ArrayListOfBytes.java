@@ -5,7 +5,7 @@ import java.util.Iterator;
 import pl.edu.pwr.wppt.cs.smartsec.container.array.AbstractArrayList.Itr;
 import pl.edu.pwr.wppt.cs.smartsec.memory.Endian;
 
-public class ArrayListOfBytes extends AbstractArrayList {
+public final class ArrayListOfBytes extends AbstractArrayList {
 
 	private byte[] array;
 
@@ -39,20 +39,30 @@ public class ArrayListOfBytes extends AbstractArrayList {
 	public byte getByte(short index) {
 		return array[index];
 	}
+	
+	public void resize(short size){
+		byte[] array = new byte[size];
+		System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
+															// not work on Java
+															// Card
+		this.array = array;
+		indexOutOfBounds = indexCalculator.nextIndex(indexOutOfBounds);
+	}
 
 	public byte set(short index, byte element) {
+		// FIXME it can't resize on demand
+		if (size()<=index){
+			resize((short) (index+1));
+		}
 		byte elementOld = array[index];
 		array[index] = element;
 		return elementOld;
 	}
 
 	public boolean add(byte element) {
-		byte[] array = new byte[size() + 1];
-		System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
-															// not work on Java
-															// Card
-		array[indexOutOfBounds] = element;
-		indexOutOfBounds = indexCalculator.nextIndex(indexOutOfBounds);
+		short i = indexOutOfBounds;
+		resize((short) (size() + 1));
+		array[i] = element;
 		return true;
 	}
 

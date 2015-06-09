@@ -1,8 +1,8 @@
 package pl.edu.pwr.wppt.cs.smartsec.memory;
 
-import java.nio.ByteOrder;
+//import java.nio.ByteOrder;
 
-import sun.misc.Unsafe;
+//import sun.misc.Unsafe;
 
 public class Endian {
 	private Endian() {
@@ -10,10 +10,10 @@ public class Endian {
 
 	public static final Endian BIG = new Endian();
 	public static final Endian LITTLE = new Endian();
-	public static final Endian NATIVE = nativeEndian(); // Endian.LITTLE; //
+	public static final Endian NATIVE = Endian.LITTLE;//nativeEndian(); // Endian.LITTLE; //
 														// FIXME
 
-	private static Endian nativeEndian() {
+	/*private static Endian nativeEndian() {
 		final Unsafe unsafe = Unsafe.getUnsafe();
 		// long a = unsafe.allocateMemory(8);
 		final short a = (short) unsafe.allocateMemory(2);
@@ -37,7 +37,7 @@ public class Endian {
 			unsafe.freeMemory(a);
 		}
 
-	}
+	}*/
 }
 
 // public enum Endian {
