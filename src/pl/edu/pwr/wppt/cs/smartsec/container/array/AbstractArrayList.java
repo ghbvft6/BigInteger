@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import pl.edu.pwr.wppt.cs.smartsec.memory.Endian;
 
-public abstract class AbstractArrayList implements Iterable {
+public abstract class AbstractArrayList {
 
 	protected short indexFirst;
 	protected short indexOutOfBounds;

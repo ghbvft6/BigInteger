@@ -32,28 +32,44 @@ public class BigInteger {
 		endian = bigInteger.endian;
 	}
 
-	public BigInteger(String number) throws Exception {
-		if (number.startsWith("-")) {
-			isSigned = true;
-			number = number.substring(1);
-		}
-		this.number = new ArrayListOfBytes();
-		byte[] bytes = number.getBytes();
-		// for(byte b : bytes){
-		// this.number.add(b-48);
-		// }
-		for (ArrayListOfBytes.Itr i = this.number.iteratorOverBytes(); i
-				.hasNext();) { // foreach doesn't work
-			byte b = i.nextByte();
-			this.number.add((byte) (b - 48));
-		}
-		base = 9;
-		toBase(BigInteger.defaultBase);
-		endian = Endian.BIG;
-		toEndian(BigInteger.defaultEndian);
+//	public BigInteger(String number) throws Exception {
+//		if (number.startsWith("-")) {
+//			isSigned = true;
+//			number = number.substring(1);
+//		}
+//		this.number = new ArrayListOfBytes();
+//		byte[] bytes = number.getBytes();
+//		// for(byte b : bytes){
+//		// this.number.add(b-48);
+//		// }
+//		for (ArrayListOfBytes.Itr i = this.number.iteratorOverBytes(); i
+//				.hasNext();) { // foreach doesn't work
+//			byte b = i.nextByte();
+//			this.number.add((byte) (b - 48));
+//		}
+//		base = 9;
+//		toBase(BigInteger.defaultBase);
+//		endian = Endian.BIG;
+//		toEndian(BigInteger.defaultEndian);
+//	}
+	
+	public byte[] getBytes(){
+		return this.number.getBytes();
 	}
 
 	public BigInteger(byte number) {
+		this.number = new ArrayListOfBytes();
+		// this.number.add(number);
+		this.number.add(number);
+		try {
+			toBase(BigInteger.defaultBase);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public BigInteger(byte[] number) {
 		this.number = new ArrayListOfBytes();
 		// this.number.add(number);
 		this.number.add(number);
@@ -203,14 +219,30 @@ public class BigInteger {
 		return this;
 	}
 
-	// TODO test TODO dry TODO performance
+	// TODO test TODO dry TODO performance^2
 	public BigInteger by(BigInteger bigInteger) {
-		throw new UnsupportedOperationException();
+		BigInteger result = new BigInteger((byte)0);
+		BigInteger zero = new BigInteger((byte)0);
+		BigInteger one = new BigInteger((byte)1);
+		while(this.equals(zero)==false){
+			this.minus(bigInteger);
+			result.plus(one);
+		}
+		return result;
 	}
 
 	// TODO test TODO dry TODO performance
 	public BigInteger mod(BigInteger bigInteger) {
-		throw new UnsupportedOperationException();
+		BigInteger result = new BigInteger((byte)0);
+		BigInteger copy = new BigInteger();
+		BigInteger zero = new BigInteger((byte)0);
+		BigInteger one = new BigInteger((byte)1);
+		while(this.equals(zero)==false){
+			this.minus(bigInteger);
+			copy.is(this);
+			result.plus(one);
+		}
+		return copy;
 	}
 
 	// TODO test TODO dry TODO performance

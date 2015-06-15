@@ -11,9 +11,9 @@ public class BigIntegerMod extends BigInteger {
 		super(bigInteger);
 	}
 
-	public BigIntegerMod(String number) throws Exception {
-		super(number);
-	}
+//	public BigIntegerMod(String number) throws Exception {
+//		super(number);
+//	}
 
 	public BigIntegerMod(byte number) throws Exception {
 		super(number);

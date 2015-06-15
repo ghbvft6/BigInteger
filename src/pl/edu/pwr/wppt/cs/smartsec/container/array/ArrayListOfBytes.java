@@ -47,7 +47,7 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 															// not work on Java
 															// Card
 		this.array = array;
-		indexOutOfBounds = indexCalculator.nextIndex(indexOutOfBounds);
+		indexOutOfBounds = size(); //indexCalculator.nextIndex(indexOutOfBounds); // TODO
 	}
 
 	public byte set(short index, byte element) {
@@ -119,7 +119,12 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 		array[index] = ((Byte) element).byteValue(); // no autoboxing
 		return elementOld;
 	}
+	
 
+	public byte[] getBytes(){
+		return array;
+	}
+	
 	public boolean add(Object element) {
 		byte[] array = new byte[size() + 1];
 		System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
@@ -127,6 +132,15 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 															// Card
 		array[indexOutOfBounds] = ((Byte) element).byteValue(); // no autoboxing
 		indexOutOfBounds = indexCalculator.nextIndex(indexOutOfBounds);
+		return true;
+	}
+	
+	public boolean add(byte[] element) {
+		short i = indexOutOfBounds;
+		resize((short) (size() + element.length));
+		for(; i<size();++i){
+			array[size()+i] = element[i];
+		}
 		return true;
 	}
 
