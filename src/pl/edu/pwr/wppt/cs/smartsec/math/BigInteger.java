@@ -257,4 +257,78 @@ public class BigInteger {
 		}
 		return this;
 	}
+	
+	
+	
+	public BigInteger is(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.is(tmp);
+    }
+
+    public BigInteger plus(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.plus(tmp);
+    }
+
+    public BigInteger minus(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.minus(tmp);
+    }
+
+    public BigInteger times(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.times(tmp);
+    }
+
+    public BigInteger by(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.by(tmp);
+    }
+
+    public BigInteger mod(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.mod(tmp);
+    }
+
+    public BigInteger pow(byte num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.pow(tmp);
+    }
+    
+    
+    
+    public BigInteger is(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.is(tmp);
+    }
+
+    public BigInteger plus(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.plus(tmp);
+    }
+
+    public BigInteger minus(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.minus(tmp);
+    }
+
+    public BigInteger times(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.times(tmp);
+    }
+
+    public BigInteger by(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.by(tmp);
+    }
+
+    public BigInteger mod(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.mod(tmp);
+    }
+
+    public BigInteger pow(byte[] num) {
+        BigInteger tmp = new BigInteger(num);
+        return this.pow(tmp);
+    }
 }

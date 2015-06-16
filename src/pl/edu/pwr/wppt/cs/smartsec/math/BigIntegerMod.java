@@ -1,5 +1,7 @@
 package pl.edu.pwr.wppt.cs.smartsec.math;
 
+import pl.edu.pwr.wppt.cs.smartsec.container.array.ArrayListOfBytes;
+
 public class BigIntegerMod extends BigInteger {
 
 	public BigInteger modulus = null;
@@ -17,34 +19,137 @@ public class BigIntegerMod extends BigInteger {
 
 	public BigIntegerMod(byte number) throws Exception {
 		super(number);
-	}
+	}	
 
-	public BigInteger is(BigInteger bigInteger) {
-		return super.is(bigInteger).mod(modulus);
+    public BigIntegerMod(byte[] number) {
+        super(number);
+    }
+    
+    
+
+    public BigIntegerMod is(BigInteger bigInteger) {
+		super.is(bigInteger).mod(modulus);
+		return this;
 	}
 
 	public BigInteger plus(BigInteger bigInteger) {
-		return super.plus(bigInteger).mod(modulus);
+		super.plus(bigInteger).mod(modulus);
+		return this;
 	}
 
 	public BigInteger minus(BigInteger bigInteger) {
-		return super.minus(bigInteger).mod(modulus);
+		super.minus(bigInteger).mod(modulus);
+		return this;
 	}
 
 	public BigInteger times(BigInteger bigInteger) {
-		return super.times(bigInteger).mod(modulus);
+		super.times(bigInteger).mod(modulus);
+		return this;
 	}
 
 	public BigInteger by(BigInteger bigInteger) {
-		return super.by(bigInteger).mod(modulus);
+		super.by(bigInteger).mod(modulus);
+		return this;
 	}
 
 	public BigInteger mod(BigInteger bigInteger) {
-		return super.mod(bigInteger).mod(modulus);
+		super.mod(bigInteger).mod(modulus);
+		return this;
 	}
 
 	// TODO through RSA
 	public BigInteger pow(BigInteger bigInteger) {
-		return super.pow(bigInteger).mod(modulus);
+		super.pow(bigInteger).mod(modulus);
+		return this;
 	}
+	
+	
+	
+    public BigIntegerMod is(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.is(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger plus(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.plus(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger minus(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.minus(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger times(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.times(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger by(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.by(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger mod(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.mod(bigInteger).mod(modulus);
+        return this;
+    }
+
+    // TODO through RSA
+    public BigInteger pow(byte num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.pow(bigInteger).mod(modulus);
+        return this;
+    }
+    
+    
+    
+    public BigIntegerMod is(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.is(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger plus(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.plus(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger minus(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.minus(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger times(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.times(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger by(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.by(bigInteger).mod(modulus);
+        return this;
+    }
+
+    public BigInteger mod(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.mod(bigInteger).mod(modulus);
+        return this;
+    }
+
+    // TODO through RSA
+    public BigInteger pow(byte[] num) {
+        BigInteger bigInteger = new BigInteger(num);
+        super.pow(bigInteger).mod(modulus);
+        return this;
+    }
 }
