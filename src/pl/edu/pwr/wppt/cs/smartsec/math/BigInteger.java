@@ -172,8 +172,10 @@ public class BigInteger {
 		short element = 0;
 		for (; i.hasNext() && j.hasNext();++index) {
 			element += (short)(i.nextByte()-j.nextByte());
+			//System.out.print("minus "+ element);
 			if (element<0) {
 				element += 256;
+				//System.out.println("minusO "+ element);
 				this.number.set(index, (byte)(element&0xFF));
 				element = -1;
 			} else {
@@ -181,19 +183,21 @@ public class BigInteger {
 				element >>>= 8;
 			}
 		}
-		if (i.hasNext()) for (; i.hasNext() ;++index) { // TODO remove this loop
-			element += (short)(i.nextByte());
-			if (element<0) {
-				element += 256;
-				this.number.set(index, (byte)(element&0xFF));
-				element = -1;
-			} else {
-			    this.number.set(index, (byte)(element&0xFF));
-				element >>>= 8;
-			}
-		}
-		if (bigInteger.number.getByte((short) (this.number.size()-1))==0){ // TODO
-			this.number.resize((short) (this.number.size()-1));
+		if (i.hasNext()){
+		    for (; i.hasNext() ;++index) { // TODO remove this loop
+    			element += (short)(i.nextByte());
+    			if (element<0) {
+    				element += 256;
+    				this.number.set(index, (byte)(element&0xFF));
+    				element = -1;
+    			} else {
+    			    this.number.set(index, (byte)(element&0xFF));
+    				element >>>= 8;
+    			}
+		    }
+    		if (this.number.getByte((short) (this.number.size()-1))==0){ // TODO
+    			this.number.resize((short) (this.number.size()-1));
+    		}
 		}
 		if (j.hasNext() || element <0 ){
 			this.number = new ArrayListOfBytes();
@@ -211,7 +215,11 @@ public class BigInteger {
 		BigInteger copy = new BigInteger();
 		copy.is(this);
 		BigInteger zero = new BigInteger((byte)0);
+        if (bigInteger.equals(zero)){
+            return zero;
+        }
 		BigInteger one = new BigInteger((byte)1);
+		bigInteger.minus(one);
 		while(bigInteger.equals(zero)==false){
 			bigInteger.minus(one);
 			this.plus(copy);
@@ -223,6 +231,9 @@ public class BigInteger {
 	public BigInteger by(BigInteger bigInteger) {
 		BigInteger result = new BigInteger((byte)0);
 		BigInteger zero = new BigInteger((byte)0);
+		if (bigInteger.equals(zero)){
+            return zero;
+        }
 		BigInteger one = new BigInteger((byte)1);
 		while(this.equals(zero)==false){
 			this.minus(bigInteger);
@@ -236,6 +247,9 @@ public class BigInteger {
 		BigInteger result = new BigInteger((byte)0);
 		BigInteger copy = new BigInteger();
 		BigInteger zero = new BigInteger((byte)0);
+		if (bigInteger.equals(zero)){
+            return zero;
+        }
 		BigInteger one = new BigInteger((byte)1);
 		while(this.equals(zero)==false){
 			this.minus(bigInteger);
@@ -251,6 +265,9 @@ public class BigInteger {
 		copy.is(this);
 		BigInteger zero = new BigInteger((byte)0);
 		BigInteger one = new BigInteger((byte)1);
+		if (bigInteger.equals(zero)){
+            return one;
+        }
 		while(bigInteger.equals(zero)==false){
 			bigInteger.minus(one);
 			this.times(copy);
@@ -304,7 +321,6 @@ public class BigInteger {
 
     public BigInteger plus(byte[] num) {
         BigInteger tmp = new BigInteger(num);
-        tmp.printBytes();
         return this.plus(tmp);
     }
 
@@ -337,7 +353,7 @@ public class BigInteger {
     public BigInteger printBytes(){
         ArrayListOfBytes.Itr i = this.number.iteratorOverBytes();
         for (; i.hasNext();) {
-            System.out.print(i.nextByte());
+            System.out.print(i.nextByte()+" ");
         }
         System.out.println();
         return this;

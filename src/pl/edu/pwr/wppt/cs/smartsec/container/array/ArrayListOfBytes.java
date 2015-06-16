@@ -48,7 +48,7 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 		//System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
 															// not work on Java
 															// Card
-		for(short i = 0; i<oldSize; ++i) array[i] = this.array[i];
+		for(short i = 0; i<(oldSize<size?oldSize:size); ++i) array[i] = this.array[i];
 		this.array = array;
 		indexOutOfBounds = size(); //indexCalculator.nextIndex(indexOutOfBounds); // TODO
 	}
