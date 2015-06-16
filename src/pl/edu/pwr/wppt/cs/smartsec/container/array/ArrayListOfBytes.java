@@ -42,10 +42,12 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 	}
 	
 	public void resize(short size){
+	    short oldSize = size();
 		byte[] array = new byte[size];
-		System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
+		//System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
 															// not work on Java
 															// Card
+		for(short i = 0; i<oldSize; ++i) array[i] = this.array[i];
 		this.array = array;
 		indexOutOfBounds = size(); //indexCalculator.nextIndex(indexOutOfBounds); // TODO
 	}
@@ -126,21 +128,23 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 	}
 	
 	public boolean add(Object element) {
-		byte[] array = new byte[size() + 1];
-		System.arraycopy(array, 0, this.array, 0, size()); // FIXME this might
-															// not work on Java
-															// Card
-		array[indexOutOfBounds] = ((Byte) element).byteValue(); // no autoboxing
-		indexOutOfBounds = indexCalculator.nextIndex(indexOutOfBounds);
+        short i = indexOutOfBounds;
+		resize((short) (size() + 1));
+		array[i] = ((Byte) element).byteValue(); // no autoboxing
 		return true;
 	}
 	
+	
 	public boolean add(byte[] element) {
+	    short j = 0;
 		short i = indexOutOfBounds;
 		resize((short) (size() + element.length));
-		for(; i<size();++i){
-			array[size()+i] = element[i];
+		for(; i<size();++i,++j){ // FIXME endian
+			array[i] = element[j];
 		}
+//	    for(short i = 0; i<element.length;++i){
+//	        add(element[i]);
+//	    }
 		return true;
 	}
 

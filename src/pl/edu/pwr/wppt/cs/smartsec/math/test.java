@@ -1,6 +1,5 @@
 package pl.edu.pwr.wppt.cs.smartsec.math;
 
-import pl.edu.pwr.wppt.cs.smartsec.container.array.Some;
 
 
 public class test {
@@ -10,19 +9,21 @@ public class test {
 		
 		
 		
-		Thread t = new Thread(new Runnable(){
-			final Some x = Some.getInstance();
-			public void run() {
-				long time = System.currentTimeMillis();
-				long result=0;
-				for(int i= 0;i<50000000;++i) result+=System.currentTimeMillis();
-				System.out.println(System.currentTimeMillis()-time);
-				
-			}
-			
-		});
-		t.start();
+//		Thread t = new Thread(new Runnable(){
+//			final Some x = Some.getInstance();
+//			public void run() {
+//				long time = System.currentTimeMillis();
+//				long result=0;
+//				for(int i= 0;i<50000000;++i) result+=System.currentTimeMillis();
+//				System.out.println(System.currentTimeMillis()-time);
+//				
+//			}
+//			
+//		});
+//		t.start();
 		System.out.println("first");
+		
+		
 //	    BigInteger a = new BigInteger((byte)1);
 //	    BigInteger b = new BigInteger((byte)1);
 //	    BigInteger c = new BigInteger((byte)2);

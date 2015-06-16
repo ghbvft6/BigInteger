@@ -70,9 +70,9 @@ public class BigInteger {
 	}
 	
 	public BigInteger(byte[] number) {
-		this.number = new ArrayListOfBytes();
+		this.number = new ArrayListOfBytes(number);
 		// this.number.add(number);
-		this.number.add(number);
+		//this.number.add(number);
 		try {
 			toBase(BigInteger.defaultBase);
 		} catch (Exception e) {
