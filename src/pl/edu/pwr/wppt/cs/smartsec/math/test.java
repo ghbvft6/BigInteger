@@ -6,8 +6,14 @@ public class test {
 	
 
 	public static void main(String[] args) {
+		byte[] num1 = {10,10,30};
+		byte[] num2 = {10,10,30};
 		
-		
+		byte[] num3 = {5,5,15};
+        byte[] num4 = {15,15,45};
+		BigInteger a = new BigInteger();
+		BigInteger b = new BigInteger();
+		System.out.println(a.plus(num1).printBytes().plus(num2).printBytes().equals(b.plus(num3).printBytes().plus(num4).printBytes()));
 		
 //		Thread t = new Thread(new Runnable(){
 //			final Some x = Some.getInstance();

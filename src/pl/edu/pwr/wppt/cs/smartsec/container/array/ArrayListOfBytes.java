@@ -11,6 +11,7 @@ public final class ArrayListOfBytes extends AbstractArrayList {
 
 	public ArrayListOfBytes(byte[] array) {
 		this.array = array;
+		indexOutOfBounds = size();
 	}
 
 	public ArrayListOfBytes(byte[] array, Endian endian) {

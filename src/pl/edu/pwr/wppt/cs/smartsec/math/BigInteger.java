@@ -304,6 +304,7 @@ public class BigInteger {
 
     public BigInteger plus(byte[] num) {
         BigInteger tmp = new BigInteger(num);
+        tmp.printBytes();
         return this.plus(tmp);
     }
 
@@ -330,5 +331,15 @@ public class BigInteger {
     public BigInteger pow(byte[] num) {
         BigInteger tmp = new BigInteger(num);
         return this.pow(tmp);
+    }
+    
+    
+    public BigInteger printBytes(){
+        ArrayListOfBytes.Itr i = this.number.iteratorOverBytes();
+        for (; i.hasNext();) {
+            System.out.print(i.nextByte());
+        }
+        System.out.println();
+        return this;
     }
 }
